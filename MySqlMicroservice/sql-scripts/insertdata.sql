@@ -1,0 +1,1 @@
+INSERT INTO blog ( title, content) VALUES ( 'Krishna','kpras@mail.com');

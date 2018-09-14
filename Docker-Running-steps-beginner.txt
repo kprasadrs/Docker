@@ -1,0 +1,40 @@
+Steps for creating a docker image from java project:
+
+1:Create a jar of the java project using Maven
+  cmd as "mvn clean package" --navigate inside the root folder
+2:To test the created jar file
+  cmd "Java -jar filename.jar"
+3: Once Jar is verified , Create our Docker file.
+
+    eg: 
+    
+FROM openjdk:latest
+LABEL maintainer="kprasadrs@gmail.com"
+VOLUME /tmp
+EXPOSE 8080
+ARG PROJECT_JAR_FILE=target/helloaustralia-0.0.1-SNAPSHOT.jar 
+ADD ${PROJECT_JAR_FILE} spring_docker_hello_australia.jar
+# Run the jar file 
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/spring_docker_hello_australia.jar"]
+
+
+Save the Docker file as "Dockerfile" in the root of the project.
+
+4:Docker commands:
+
+   docker build -t kp/imagename .   ---for building image
+   docker run -d -p 8011:8080 --name=insatanceName kp/imagename
+       note:8080 is  mapped to the host OS port  8011
+      Check as http://localhost:8011/
+      
+ To inspect ip of the container
+    docker inspect containername
+    https://medium.com/@itsromiljain/docker-setup-and-dockerize-an-application-5c24a4c8b428
+    
+ To check the bash 
+    docker exec -it instanceName /bin/bash
+    
+    inside root:(Sample for mysql containers)
+       mysql -uUsername -pPassword 
+       
+       
