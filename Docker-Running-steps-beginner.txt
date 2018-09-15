@@ -38,3 +38,33 @@ Save the Docker file as "Dockerfile" in the root of the project.
        mysql -uUsername -pPassword 
        
        
+       ----------------
+       ----------------
+       ----------------
+       
+  application.properties
+  
+spring.jpa.hibernate.ddl-auto=create
+spring.datasource.url=jdbc:mysql://mysql-helloaustralia:3306/restapi
+spring.datasource.username=demo_user
+spring.datasource.password=password
+
+----------------------------
+
+Sample Mysql Container creations:
+
+docker run -p 3316:3306 
+--name mysql-helloaustralia -e MYSQL_ROOT_PASSWORD=password 
+-e 
+MYSQL_DATABASE=restapi 
+-e MYSQL_USER=demo_user 
+-e MYSQL_PASSWORD=password 
+-d Krishna/mysql
+
+---Link spring application with mysql container
+
+docker run -p 8088:8080 
+--name helloaustralia --link mysql-helloaustralia:Krishna/mysql
+-d Krishna/helloausralia
+       
+       
